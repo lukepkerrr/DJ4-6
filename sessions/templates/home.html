@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Угадай число{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="header">
+            <h1>Игра "Угадай число"</h1>
+        </div>
+        <div>
+            {% if is_author %}
+                <h3>Загаданное число: {{ number }}</h3>
+                {% if game_ended %}
+                    <h3>Ваше число отгадали за {{ counter }} попыток</h3>
+                {% endif %}
+            {% else %}
+                {% if is_winner %}
+                    <h3>Вы угадали число с {{ counter }} попыток</h3>
+                {% else %}
+                    <form action="" method="GET">
+                    {% for field in form %}
+                        <p>{{ field.label_tag }}</p> {{ field }}
+                        {{ field.errors }}
+                    {% endfor %}
+                        <input type="submit" value="Попробовать"/>
+                    </form>
+                    {{ answer }}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
